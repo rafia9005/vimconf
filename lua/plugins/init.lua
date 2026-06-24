@@ -13,15 +13,9 @@ return {
 
   {
     "nvim-treesitter/nvim-treesitter",
-    opts = {
-      ensure_installed = {
-        "vim",
-        "lua",
-        "vimdoc",
-        "html",
-        "css",
-      },
-    },
+    event = "BufRead",
+    build = ":TSUpdate",
+    opts = require "configs.treesitter",
   },
 
   {
@@ -29,27 +23,24 @@ return {
     name = "tokyo-night",
     lazy = false,
     priority = 1000,
-    opts = {
-      style = "night",
-      -- transparent = true
-    },
+    opts = require "configs.tokyonight",
   },
-
-  -- {
-  --   "IogaMaster/neocord",
-  --   event = "VeryLazy",
-  --   config = function()
-  --     require "configs.neocord"
-  --   end,
-  -- },
-
   {
-    "andweeb/presence.nvim",
+    "vyfor/cord.nvim",
+    build = "noop",
     event = "VeryLazy",
     config = function()
-      require "configs.presence"
+      require "configs.cord"
     end,
   },
+  -- presence.nvim disabled: cord.nvim handles Discord Rich Presence
+  -- {
+  --   "andweeb/presence.nvim",
+  --   event = "VeryLazy",
+  --   config = function()
+  --     require "configs.presence"
+  --   end,
+  -- },
 
   {
     "nvim-neo-tree/neo-tree.nvim",
@@ -109,33 +100,8 @@ return {
   },
 
   {
-    "nvim-treesitter/nvim-treesitter",
-    event = "BufRead",
-    build = ":TSUpdate",
-    config = function()
-      require("nvim-treesitter").setup {
-        highlight = {
-          enable = true,
-          additional_vim_regex_highlighting = false,
-        },
-      }
-    end,
-  },
-
-  {
     "williamboman/mason.nvim",
-    opts = {
-      ensure_installed = {
-        "html",
-        "cssls",
-        "gopls",
-        "glint",
-        "pyright",
-        "intelephense",
-        "lua_ls",
-        "rust_analyzer",
-      },
-    },
+    opts = require "configs.mason",
   },
   {
     "jwalton512/vim-blade",
@@ -143,12 +109,14 @@ return {
   },
   {
     "EdenEast/nightfox.nvim",
-    config = function ()
-      require('nightfox').setup({
-        comments = "italic",
-        keywords = "bold",
-        types = "italic,bold"
-      })
-    end
-  }
+    opts = require "configs.nightfox",
+  },
+  {
+    "ajbucci/ipynb.nvim",
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+      "neovim/nvim-lspconfig",
+    },
+    opts = require "configs.ipynb_nvim",
+  },
 }
