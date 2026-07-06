@@ -1,17 +1,29 @@
--- Auto-reload pywal theme when colors.json changes
-vim.api.nvim_create_autocmd("BufWritePost", {
-  pattern = vim.fn.expand("~/.cache/wal/colors.json"),
-  group = vim.api.nvim_create_augroup("PywalReload", { clear = true }),
-  callback = function()
-    -- Flush cache so require reads fresh file
-    package.loaded["themes.pywal"] = nil
-    package.loaded["base46"] = nil
+-- Watch pywal colors.json, auto-reload theme + lualine
+local fn = vim.fn
+local uv = vim.uv or vim.loop
 
-    -- Get theme name from chadrc
-    local chadrc = require("chadrc")
-    vim.g.base46_cache = vim.fn.stdpath "data" .. "/base46"
+local colors_path = fn.expand("~/.cache/wal/colors.json")
+local last_mtime = nil
 
-    -- Reload all highlights
-    require("base46").load_all_highlights()
-  end,
-})
+local function reload()
+  -- flush theme cache then reload
+  package.loaded["themes.pywal"] = nil
+  package.loaded["base46"] = nil
+  pcall(require("base46").load_all_highlights)
+
+  -- lualine re-reads colors.json on re-require
+  package.loaded["configs.lualine"] = nil
+  pcall(require("configs.lualine"))
+end
+
+local timer = uv.new_timer()
+timer:start(2000, 2000, vim.schedule_wrap(function()
+  local ok, mtime = pcall(fn.getftime, colors_path)
+  if not ok or mtime == -1 then return end
+  if last_mtime and mtime > last_mtime then
+    last_mtime = mtime
+    reload()
+  elseif not last_mtime then
+    last_mtime = mtime
+  end
+end))
