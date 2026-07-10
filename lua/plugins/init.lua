@@ -119,4 +119,45 @@ return {
     },
     opts = require "configs.ipynb_nvim",
   },
+
+  {
+    "josstei/whisk.nvim",
+    event = "VeryLazy",
+    opts = {
+      cursor = {
+        duration = 150,
+        easing = "ease-out",
+        enabled = true,
+      },
+      scroll = {
+        duration = 200,
+        easing = "ease-in-out",
+        enabled = true,
+      },
+      keymaps = {
+        cursor = true,
+        scroll = true,
+      },
+      performance = {
+        enabled = false,
+        disable_syntax_during_scroll = true,
+        ignore_events = { "WinScrolled", "CursorMoved", "CursorMovedI" },
+        reduce_frame_rate = false,
+        frame_rate_threshold = 60,
+        auto_enable_on_large_files = true,
+        large_file_threshold = 5000,
+      },
+    },
+  },
+
+  {
+    "sphamba/smear-cursor.nvim",
+    opts = {
+      smear_between_buffers = true,
+      smear_between_neighbor_lines = true,
+      scroll_buffer_space = true,
+      legacy_computing_symbols_support = false,
+      smear_insert_mode = true,
+    },
+  },
 }
