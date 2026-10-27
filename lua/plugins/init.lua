@@ -13,9 +13,15 @@ return {
 
   {
     "nvim-treesitter/nvim-treesitter",
+    branch = "main",
     event = "BufRead",
     build = ":TSUpdate",
     opts = require "configs.treesitter",
+  },
+
+  {
+    "sindrets/diffview.nvim",
+    lazy = false,
   },
 
   {
@@ -33,15 +39,6 @@ return {
       require "configs.cord"
     end,
   },
-  -- presence.nvim disabled: cord.nvim handles Discord Rich Presence
-  -- {
-  --   "andweeb/presence.nvim",
-  --   event = "VeryLazy",
-  --   config = function()
-  --     require "configs.presence"
-  --   end,
-  -- },
-
   {
     "nvim-neo-tree/neo-tree.nvim",
     cmd = "Neotree",
@@ -75,7 +72,7 @@ return {
 
   {
     "nvim-telescope/telescope.nvim",
-    tag = "0.1.8",
+    branch = "master",
     dependencies = { "nvim-lua/plenary.nvim" },
     config = function()
       require "configs.telescope"
