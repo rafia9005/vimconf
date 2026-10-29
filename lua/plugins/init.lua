@@ -184,7 +184,13 @@ return {
       require "configs.indent_blankline"
     end,
   },
-
+  -- Render Markdown: Plugin to improve viewing Markdown files directly in Neovim
+  {
+    "MeanderingProgrammer/render-markdown.nvim",
+    dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
+    ft = { "markdown" },
+    opts = require "configs.render_markdown",
+  },
   -- Smear Cursor: Smooth animated smear/motion trail on cursor movement
   {
     "sphamba/smear-cursor.nvim",
