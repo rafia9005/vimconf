@@ -35,6 +35,10 @@ return {
     lazy = false,
     priority = 1000,
     opts = require "configs.tokyonight",
+    config = function(_, opts)
+      require("tokyonight").setup(opts)
+      vim.cmd.colorscheme "tokyonight"
+    end,
   },
 
   -- Cord: Discord Rich Presence plugin with deep Neovim integration
@@ -169,17 +173,16 @@ return {
     },
   },
 
-  -- Indent Blankline & Rainbowline: Visual indent guides with rainbow coloring
+  -- Indent Blankline & Rainbowline: Visual indent guides with Tokyo Night rainbow coloring
   {
     "lukas-reineke/indent-blankline.nvim",
-    main = "ibl",
-    opts = function(_, opts)
-      -- Other blankline configuration here
-      return require("indent-rainbowline").make_opts(opts)
-    end,
+    event = { "BufReadPost", "BufNewFile" },
     dependencies = {
       "TheGLander/indent-rainbowline.nvim",
     },
+    config = function()
+      require "configs.indent_blankline"
+    end,
   },
 
   -- Smear Cursor: Smooth animated smear/motion trail on cursor movement
