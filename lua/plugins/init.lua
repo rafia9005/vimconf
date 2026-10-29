@@ -1,9 +1,11 @@
 return {
+  -- Conform: Lightweight code formatter (auto-format on save / call)
   {
     "stevearc/conform.nvim",
     opts = require "configs.conform",
   },
 
+  -- LSPConfig: Quickstart configurations for Neovim LSP
   {
     "neovim/nvim-lspconfig",
     config = function()
@@ -11,6 +13,7 @@ return {
     end,
   },
 
+  -- Treesitter: Advanced syntax highlighting and AST-based code parsing
   {
     "nvim-treesitter/nvim-treesitter",
     branch = "main",
@@ -19,11 +22,13 @@ return {
     opts = require "configs.treesitter",
   },
 
+  -- Diffview: Single and multi-tab diff and merge tool for Git
   {
     "sindrets/diffview.nvim",
     lazy = false,
   },
 
+  -- Tokyo Night: Clean, aesthetic dark theme celebrating downtown Tokyo
   {
     "folke/tokyonight.nvim",
     name = "tokyo-night",
@@ -31,6 +36,8 @@ return {
     priority = 1000,
     opts = require "configs.tokyonight",
   },
+
+  -- Cord: Discord Rich Presence plugin with deep Neovim integration
   {
     "vyfor/cord.nvim",
     build = "noop",
@@ -39,6 +46,8 @@ return {
       require "configs.cord"
     end,
   },
+
+  -- Neo-tree: File explorer and project management sidebar
   {
     "nvim-neo-tree/neo-tree.nvim",
     cmd = "Neotree",
@@ -53,11 +62,13 @@ return {
     end,
   },
 
+  -- GitHub Copilot: Official GitHub Copilot inline AI completions
   {
     "github/copilot.vim",
     cmd = "Copilot",
   },
 
+  -- CopilotChat: Interactive chat interface for GitHub Copilot
   {
     "CopilotC-Nvim/CopilotChat.nvim",
     dependencies = {
@@ -70,6 +81,7 @@ return {
     },
   },
 
+  -- Telescope: Highly extensible fuzzy finder over lists, files, and git
   {
     "nvim-telescope/telescope.nvim",
     branch = "master",
@@ -79,6 +91,7 @@ return {
     end,
   },
 
+  -- Bufferline: Snazzy buffer and tab line (currently disabled)
   -- {
   --   "akinsho/bufferline.nvim",
   --   event = "BufReadPre",
@@ -87,6 +100,7 @@ return {
   --   end,
   -- },
 
+  -- Lualine: Blazing fast and easy to configure statusline
   {
     "nvim-lualine/lualine.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
@@ -96,18 +110,25 @@ return {
     event = "VeryLazy",
   },
 
+  -- Mason: Portable package manager for LSP servers, DAP, linters & formatters
   {
     "williamboman/mason.nvim",
     opts = require "configs.mason",
   },
+
+  -- Vim Blade: Laravel Blade syntax highlighting support
   {
     "jwalton512/vim-blade",
     ft = "blade",
   },
+
+  -- Nightfox: Highly customizable colorschemes with multiple palettes
   {
     "EdenEast/nightfox.nvim",
     opts = require "configs.nightfox",
   },
+
+  -- Ipynb: Jupyter Notebook (.ipynb) renderer and integration
   {
     "ajbucci/ipynb.nvim",
     dependencies = {
@@ -117,6 +138,7 @@ return {
     opts = require "configs.ipynb_nvim",
   },
 
+  -- Whisk: Smooth scrolling and smooth cursor physics animations
   {
     "josstei/whisk.nvim",
     event = "VeryLazy",
@@ -147,6 +169,20 @@ return {
     },
   },
 
+  -- Indent Blankline & Rainbowline: Visual indent guides with rainbow coloring
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    main = "ibl",
+    opts = function(_, opts)
+      -- Other blankline configuration here
+      return require("indent-rainbowline").make_opts(opts)
+    end,
+    dependencies = {
+      "TheGLander/indent-rainbowline.nvim",
+    },
+  },
+
+  -- Smear Cursor: Smooth animated smear/motion trail on cursor movement
   {
     "sphamba/smear-cursor.nvim",
     opts = {
