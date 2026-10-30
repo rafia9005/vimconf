@@ -25,7 +25,7 @@ local tokyo_hex = {
 
 -- Generate rainbow options with Tokyo Night palette
 local opts = rainbowline.make_opts({}, {
-  color_transparency = 0.08,
+  color_transparency = 0.40,
   colors = tokyo_colors,
 })
 
